@@ -2,6 +2,9 @@ package com.stdio.instat;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.stdio.instat.models.Match;
+
 import org.json.JSONObject;
 
 public class MainPresenter {
@@ -29,6 +32,9 @@ public class MainPresenter {
         interactor.getMatchInfo(new MatchInfoInteractor.LoadInfoCallback() {
             @Override
             public void onLoad(JSONObject info) {
+                Gson gson = new Gson(); // Or use new GsonBuilder().create();
+                Match match = gson.fromJson(String.valueOf(info), Match.class);
+                System.out.println(match.getTeam2().getName_rus());
                 view.showInfo(String.valueOf(info));
             }
         });
