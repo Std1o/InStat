@@ -2,12 +2,14 @@ package com.stdio.instat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,14 +35,16 @@ import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView;
+    VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.textView);
         getVideoList();
+
+        videoView = findViewById(R.id.videoView);
+
     }
 
     public void getInfo() {
@@ -104,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
                 response -> {
                     try {
                         JSONArray jsonArray = new JSONArray(response);
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        Uri uri=Uri.parse(jsonObject.getString("url"));
+                        videoView.setVideoURI(uri);
+                        videoView.start();
                         System.out.println(jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
