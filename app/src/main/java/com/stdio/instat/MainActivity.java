@@ -20,6 +20,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.stdio.instat.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,18 +36,15 @@ import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
-    VideoView videoView;
     private MainPresenter presenter;
-    TextView textView;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //getVideoList();
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        videoView = findViewById(R.id.videoView);
-        textView = findViewById(R.id.textView);
         MatchInfoInteractor matchInfoInteractor = new MatchInfoInteractor(this);
         presenter = new MainPresenter(matchInfoInteractor);
         presenter.attachView(this);
@@ -61,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
                         JSONArray jsonArray = new JSONArray(response);
                         JSONObject jsonObject = jsonArray.getJSONObject(0);
                         Uri uri=Uri.parse(jsonObject.getString("url"));
-                        videoView.setVideoURI(uri);
-                        videoView.start();
+                        binding.videoView.setVideoURI(uri);
+                        binding.videoView.start();
                         System.out.println(jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -111,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void showInfo(String info) {
-        textView.setText(info);
+        binding.textView.setText(info);
     }
 
     @Override
