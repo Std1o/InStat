@@ -1,5 +1,7 @@
 package com.stdio.instat;
 
+import com.stdio.instat.models.Match;
+
 public interface MainView {
-    void showInfo(String info);
+    void showInfo(Match info);
 }

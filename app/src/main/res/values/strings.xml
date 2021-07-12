@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">InStat</string>
+
+    <string name="team_info">%s - %d</string>
 </resources>

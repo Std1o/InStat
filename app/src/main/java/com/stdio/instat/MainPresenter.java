@@ -35,7 +35,7 @@ public class MainPresenter {
                 Gson gson = new Gson(); // Or use new GsonBuilder().create();
                 Match match = gson.fromJson(String.valueOf(info), Match.class);
                 System.out.println(match.getTeam2().getName_rus());
-                view.showInfo(String.valueOf(info));
+                view.showInfo(match);
             }
         });
     }

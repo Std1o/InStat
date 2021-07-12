@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.stdio.instat.databinding.ActivityMainBinding;
+import com.stdio.instat.models.Match;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,8 +109,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showInfo(String info) {
-        binding.textView.setText(info);
+    public void showInfo(Match info) {
+        binding.tournamentName.setText(info.getTournament().getName_rus());
+        binding.date.setText(info.getDate());
+        binding.team1.setText(getString(R.string.team_info, info.getTeam1().getName_rus(), info.getTeam1().getScore()));
+        binding.team2.setText(getString(R.string.team_info, info.getTeam2().getName_rus(), info.getTeam2().getScore()));
     }
 
     @Override
