@@ -1,4 +1,4 @@
-package com.stdio.instat;
+package com.stdio.instat.interactors;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -83,7 +83,7 @@ public class MatchInfoInteractor {
         requestQueue.add(stringRequest);
     }
 
-    interface LoadInfoCallback {
+    public interface LoadInfoCallback {
         void onLoad(JSONObject info);
     }
 }
