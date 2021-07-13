@@ -2,4 +2,7 @@
     <string name="app_name">InStat</string>
 
     <string name="team_info">%s - %d</string>
+    <string name="period">тайм - %d</string>
+    <string name="quality">качество - %s</string>
+    <string name="size">размер - %s МБ</string>
 </resources>

@@ -13,19 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.stdio.instat.models.Video;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DataViewHolder> {
 
     public static class DataViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTitle;
-        TextView tvDescription;
+        TextView tvName, tvPeriod, tvQuality, tvSize;
 
         DataViewHolder(View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvPeriod = itemView.findViewById(R.id.tvPeriod);
+            tvQuality = itemView.findViewById(R.id.tvQuality);
+            tvSize = itemView.findViewById(R.id.tvSize);
         }
     }
 
@@ -52,8 +54,16 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DataViewHolder> {
     @Override
     public void onBindViewHolder(DataViewHolder viewHolder, final int position) {
         Video video = dataList.get(position);
-        viewHolder.tvTitle.setText(video.getName());
-        viewHolder.tvDescription.setText(String.valueOf(video.getPeriod()));
+        viewHolder.tvName.setText(video.getName());
+        viewHolder.tvPeriod.setText(mContext.getString(R.string.period, video.getPeriod()));
+        viewHolder.tvQuality.setText(mContext.getString(R.string.quality, video.getQuality()));
+        //converting byte size to megabyte size
+        double size = (double) video.getSize()/1048576;
+
+        DecimalFormat decimalFormat = new DecimalFormat( "#.#" );
+        String strSize = decimalFormat.format(size);
+        viewHolder.tvSize.setText(mContext.getString(R.string.size, strSize));
+
         viewHolder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, PlayerActivity.class);
             intent.putExtra("videoURL", video.getUrl());
