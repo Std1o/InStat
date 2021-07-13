@@ -1,6 +1,7 @@
 package com.stdio.instat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DataViewHolder> {
         Video video = dataList.get(position);
         viewHolder.tvTitle.setText(video.getName());
         viewHolder.tvDescription.setText(String.valueOf(video.getPeriod()));
+        viewHolder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, PlayerActivity.class);
+            intent.putExtra("videoURL", video.getUrl());
+            mContext.startActivity(intent);
+        });
     }
 
     @Override

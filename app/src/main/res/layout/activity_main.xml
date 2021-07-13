@@ -8,12 +8,6 @@
     android:gravity="center_horizontal"
     tools:context=".MainActivity">
 
-
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp" />
-
     <TextView
         android:id="@+id/tournamentName"
         android:layout_width="wrap_content"
