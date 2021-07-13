@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.widget.LinearLayout;
 
 import com.stdio.instat.databinding.ActivityPlayerBinding;
 
@@ -16,9 +18,19 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPlayerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setDefaultVideoParams();
 
         Uri uri=Uri.parse(getIntent().getStringExtra("videoURL"));
         binding.videoView.setVideoURI(uri);
         binding.videoView.start();
+    }
+
+    private void setDefaultVideoParams() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) binding.videoView.getLayoutParams();
+        params.width = metrics.widthPixels;// max width
+        params.height = (int) (params.width * 0.5625);//ratio of height to width is approximately like 720/1280
+        binding.videoView.setLayoutParams(params);
     }
 }
