@@ -1,6 +1,7 @@
 package com.stdio.instat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,12 +40,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        initRV();
 
         MatchInfoInteractor matchInfoInteractor = new MatchInfoInteractor(this);
         VideoUrlsInteractor videoUrlsInteractor = new VideoUrlsInteractor(this);
         presenter = new MainPresenter(matchInfoInteractor, videoUrlsInteractor);
         presenter.attachView(this);
         presenter.viewIsReady();
+    }
+
+    private void initRV() {
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        binding.rv.setLayoutManager(llm);
     }
 
     @Override
@@ -57,9 +64,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void showVideos(ArrayList<Video> videos) {
-        for (Video video: videos) {
-            System.out.println(video.getName());
-        }
+        RVAdapter adapter = new RVAdapter(videos, this);
+        binding.rv.setAdapter(adapter);
     }
 
     @Override
