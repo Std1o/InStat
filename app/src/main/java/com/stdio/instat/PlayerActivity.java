@@ -20,7 +20,11 @@ public class PlayerActivity extends AppCompatActivity {
         binding = ActivityPlayerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setDefaultVideoParams();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         Uri uri=Uri.parse(getIntent().getStringExtra("videoURL"));
         binding.videoView.setVideoURI(uri);
         binding.videoView.start();
